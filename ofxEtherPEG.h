@@ -9,7 +9,6 @@
 #include "ofMain.h"
 #include "pcap.h" // see www.tcpdump.com for more information
 
-#include "Promiscuity.h"
 
 typedef struct {
 	// no ethernet header; please remove it first.
@@ -33,7 +32,7 @@ typedef struct {
 	UInt8	moreFlagsAndJunk;
 	// etc.
 	// whatever
-} Packet;
+} Packet; 
 
 enum { kFree, kCaptured, kDisplaying};
 typedef struct StashedPacket StashedPacket;
@@ -74,6 +73,7 @@ public:
 	void update();
 	void draw();
 	void createBlob(int aNumber);
+	void termPromiscuity(void);
 	vector<Blob>blobs;
 };
 

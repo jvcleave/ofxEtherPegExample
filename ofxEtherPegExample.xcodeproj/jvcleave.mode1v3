@@ -197,7 +197,90 @@
 	<key>Notifications</key>
 	<array/>
 	<key>OpenEditors</key>
-	<array/>
+	<array>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>039FFE2A14F89D340047F4CF</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>ofGraphics.cpp</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>039FFE2B14F89D340047F4CF</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>ofGraphics.cpp</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>039FFE8B14F94DB60047F4CF</string>
+						<key>history</key>
+						<array>
+							<string>039FFE2C14F89D340047F4CF</string>
+							<string>039FFE2D14F89D340047F4CF</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1672, 1003}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>38 108 1672 1044 0 0 1920 1178 </string>
+			</dict>
+		</dict>
+		<dict>
+			<key>Content</key>
+			<dict>
+				<key>PBXProjectModuleGUID</key>
+				<string>039FFE0214F883440047F4CF</string>
+				<key>PBXProjectModuleLabel</key>
+				<string>ofxEtherPEG.h</string>
+				<key>PBXSplitModuleInNavigatorKey</key>
+				<dict>
+					<key>Split0</key>
+					<dict>
+						<key>PBXProjectModuleGUID</key>
+						<string>039FFE0314F883440047F4CF</string>
+						<key>PBXProjectModuleLabel</key>
+						<string>ofxEtherPEG.h</string>
+						<key>_historyCapacity</key>
+						<integer>0</integer>
+						<key>bookmark</key>
+						<string>039FFE8D14F94DB60047F4CF</string>
+						<key>history</key>
+						<array>
+							<string>039FFE1914F884690047F4CF</string>
+							<string>039FFE1A14F884690047F4CF</string>
+						</array>
+					</dict>
+					<key>SplitCount</key>
+					<string>1</string>
+				</dict>
+				<key>StatusBarVisibility</key>
+				<true/>
+			</dict>
+			<key>Geometry</key>
+			<dict>
+				<key>Frame</key>
+				<string>{{0, 20}, {1672, 1003}}</string>
+				<key>PBXModuleWindowStatusBarHidden2</key>
+				<false/>
+				<key>RubberWindowFrame</key>
+				<string>149 134 1672 1044 0 0 1920 1178 </string>
+			</dict>
+		</dict>
+	</array>
 	<key>PerspectiveWidths</key>
 	<array>
 		<integer>-1</integer>
@@ -273,7 +356,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>16</integer>
+									<integer>11</integer>
 									<integer>9</integer>
 									<integer>0</integer>
 								</array>
@@ -298,7 +381,7 @@
 							<real>375</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>0 105 1920 1073 0 0 1920 1178 </string>
+						<string>2 105 1920 1073 0 0 1920 1178 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -328,27 +411,24 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>039FFD6B14F8690F0047F4CF</string>
+										<string>039FFE8A14F94DB60047F4CF</string>
 										<key>history</key>
 										<array>
 											<string>0367CEC814F7F687004A07D7</string>
 											<string>0367CEFA14F7F896004A07D7</string>
 											<string>0367CEFB14F7F896004A07D7</string>
 											<string>0367CF4D14F804C5004A07D7</string>
-											<string>0367CF4F14F804C5004A07D7</string>
-											<string>0367CF5114F804C5004A07D7</string>
-											<string>0367CF5214F804C5004A07D7</string>
 											<string>0367CF5814F804C5004A07D7</string>
 											<string>0367CF6A14F8057B004A07D7</string>
-											<string>039FFD2914F8658A0047F4CF</string>
 											<string>039FFD2A14F8658A0047F4CF</string>
-											<string>039FFD2C14F8658A0047F4CF</string>
 											<string>039FFD6414F8690F0047F4CF</string>
-											<string>039FFD6614F8690F0047F4CF</string>
-											<string>039FFD6714F8690F0047F4CF</string>
-											<string>039FFD6814F8690F0047F4CF</string>
-											<string>039FFD6914F8690F0047F4CF</string>
-											<string>039FFD6A14F8690F0047F4CF</string>
+											<string>039FFD8C14F877D30047F4CF</string>
+											<string>039FFDD714F87F700047F4CF</string>
+											<string>039FFDD814F87F700047F4CF</string>
+											<string>039FFDDA14F87F700047F4CF</string>
+											<string>039FFE7214F9321A0047F4CF</string>
+											<string>039FFE7314F9321A0047F4CF</string>
+											<string>039FFE7514F9321A0047F4CF</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -362,7 +442,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {1523, 842}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 105 1920 1073 0 0 1920 1178 </string>
+								<string>2 105 1920 1073 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -382,7 +462,7 @@
 								<key>Frame</key>
 								<string>{{0, 847}, {1523, 185}}</string>
 								<key>RubberWindowFrame</key>
-								<string>0 105 1920 1073 0 0 1920 1178 </string>
+								<string>2 105 1920 1073 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
@@ -546,17 +626,18 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>039FFD6C14F8690F0047F4CF</string>
-		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>039FFCFA14F863300047F4CF</string>
 		<string>039FFCFB14F863300047F4CF</string>
-		<string>/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/ofxEtherPegExample.xcodeproj</string>
+		<string>039FFE0214F883440047F4CF</string>
+		<string>039FFE2A14F89D340047F4CF</string>
 		<string>0367CE9614F7542E004A07D7</string>
+		<string>1C530D57069F1CE1000CFCEE</string>
 		<string>1C78EAAD065D492600B07095</string>
 		<string>1CD10A99069EF8BA00B06720</string>
+		<string>/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/ofxEtherPegExample.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>0 105 1920 1073 0 0 1920 1178 </string>
+	<string>2 105 1920 1073 0 0 1920 1178 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>
@@ -586,14 +667,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {972, 622}}</string>
+								<string>{{0, 0}, {1010, 657}}</string>
 								<key>RubberWindowFrame</key>
-								<string>418 207 972 839 0 0 1920 1178 </string>
+								<string>418 148 1010 898 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>622pt</string>
+							<string>657pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -610,18 +691,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 627}, {972, 171}}</string>
+								<string>{{0, 662}, {1010, 195}}</string>
 								<key>RubberWindowFrame</key>
-								<string>418 207 972 839 0 0 1920 1178 </string>
+								<string>418 148 1010 898 0 0 1920 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXBuildResultsModule</string>
 							<key>Proportion</key>
-							<string>171pt</string>
+							<string>195pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>798pt</string>
+					<string>857pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -644,7 +725,7 @@
 			<key>WindowContentMinSize</key>
 			<string>486 300</string>
 			<key>WindowString</key>
-			<string>418 207 972 839 0 0 1920 1178 </string>
+			<string>418 148 1010 898 0 0 1920 1178 </string>
 			<key>WindowToolGUID</key>
 			<string>0367CE9614F7542E004A07D7</string>
 			<key>WindowToolIsVisible</key>
@@ -790,12 +871,14 @@
 							<key>Dock</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CDD528C0622207200134675</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>EtherPEG.c</string>
+										<string>ofxEtherPEG.cpp</string>
 										<key>StatusBarVisibility</key>
 										<true/>
 									</dict>
@@ -816,8 +899,6 @@
 							<string>534pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -863,7 +944,7 @@
 			<key>WindowToolGUID</key>
 			<string>1C530D57069F1CE1000CFCEE</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0367CEA214F7547B004A07D7 /* PromiscuityX.c in Sources */ = {isa = PBXBuildFile; fileRef = 0367CE9E14F7547B004A07D7 /* PromiscuityX.c */; };
 		0367CEED14F7F7ED004A07D7 /* libpcap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0367CEEC14F7F7ED004A07D7 /* libpcap.a */; };
 		0367CF2A14F7FB54004A07D7 /* ofxEtherPEG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0367CF2914F7FB54004A07D7 /* ofxEtherPEG.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
@@ -60,11 +59,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0367CE9C14F7547B004A07D7 /* EtherPEG.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = EtherPEG.c; path = addons/etherpeg/EtherPEG.c; sourceTree = "<group>"; };
-		0367CE9D14F7547B004A07D7 /* Promiscuity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Promiscuity.h; path = addons/etherpeg/Promiscuity.h; sourceTree = "<group>"; };
-		0367CE9E14F7547B004A07D7 /* PromiscuityX.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = PromiscuityX.c; path = addons/etherpeg/PromiscuityX.c; sourceTree = "<group>"; };
-		0367CE9F14F7547B004A07D7 /* SortFrames.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SortFrames.c; path = addons/etherpeg/SortFrames.c; sourceTree = "<group>"; };
-		0367CEA014F7547B004A07D7 /* SortFrames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SortFrames.h; path = addons/etherpeg/SortFrames.h; sourceTree = "<group>"; };
 		0367CEEC14F7F7ED004A07D7 /* libpcap.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcap.a; sourceTree = "<group>"; };
 		0367CF2814F7FB54004A07D7 /* ofxEtherPEG.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxEtherPEG.h; sourceTree = "<group>"; };
 		0367CF2914F7FB54004A07D7 /* ofxEtherPEG.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxEtherPEG.cpp; sourceTree = "<group>"; };
@@ -120,11 +114,6 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
-				0367CE9C14F7547B004A07D7 /* EtherPEG.c */,
-				0367CE9D14F7547B004A07D7 /* Promiscuity.h */,
-				0367CE9E14F7547B004A07D7 /* PromiscuityX.c */,
-				0367CE9F14F7547B004A07D7 /* SortFrames.c */,
-				0367CEA014F7547B004A07D7 /* SortFrames.h */,
 				0367CF2814F7FB54004A07D7 /* ofxEtherPEG.h */,
 				0367CF2914F7FB54004A07D7 /* ofxEtherPEG.cpp */,
 			);
@@ -294,7 +283,6 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
-				0367CEA214F7547B004A07D7 /* PromiscuityX.c in Sources */,
 				0367CF2A14F7FB54004A07D7 /* ofxEtherPEG.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,6 +302,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH)";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
@@ -341,6 +330,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(NATIVE_ARCH)";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;

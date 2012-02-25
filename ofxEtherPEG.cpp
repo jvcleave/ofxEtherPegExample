@@ -33,11 +33,19 @@ StashedPacket *addPacketToStash(const Packet *packetdata, SInt32 SOI, SInt32 EOI
 {
 	StashedPacket *p;
 	
-	if (!parent && SOI == -1) { DebugStr("\paddPacketToStash invalid packet"); return(NULL); }
+	if (!parent && SOI == -1)
+	{ 
+		cout << "addPacketToStash invalid packet" << endl;
+		return(NULL); 
+	}
 	if (packetdata->totalLength > kMaxPacketLength) return(NULL);
 	
 	p = &stash[nextStashEntry];
-	if (p->state != kFree) { DebugStr("\paddPacketToStash no free space"); return(NULL); }
+	if (p->state != kFree) 
+	{ 
+		cout << "addPacketToStash no free space" << endl;
+		return(NULL); 
+	}
 	if (++nextStashEntry >= kStashSize) nextStashEntry = 0;
 	
 	p->state  = kCaptured;
@@ -121,23 +129,28 @@ void TrimPacketChain(StashedPacket *p)
 		p->parent = NULL;
 	}
 }
-
-int createStash(void)
+int counter =0;
+int createStash()
 {
 	int i;
+	int returnValue = -1;
 	for (i = 0; i < kStashSize; i++)
 	{
 		stash[i].state = kFree;
 		stash[i].data = (Packet*)NewPtr(kMaxPacketLength);
-		if (!stash[i].data) { 
-			printf(" out of memory, createStash"); 
-			return(0); 
-		}else {
-			printf("stash created");
+		if (!stash[i].data) 
+		{ 
+			cout << "out of memory" << endl; 
+			returnValue =  -1; 
+		}else 
+		{
+			counter++;
+			//cout << "STASH CREATED: " << counter << endl; 
+			returnValue = 1;
 		}
 		
 	}
-	return 1;
+	return returnValue;
 }
 // look for image-start markers more than 4 bytes into imageData.
 // if one is found, remove the portion of the handle before it and return true.
@@ -194,9 +207,12 @@ void DisplayJPEGAndDisposeHandle( Handle imageData )
 	if( !imageData )
 	{
 		cout << "NO IMAGE DATA" << endl;
-	}	
+	}	else {
+		cout << "WE HAVE DATA!" << endl;
+	}
+
 	return;
-	/*
+	
 again:
 	if( 'G' == **imageData ) {
 		grip = gripG;
@@ -227,7 +243,7 @@ again:
 	err = GraphicsImportGetNaturalBounds( grip, &naturalBounds );
 	if( err ) goto bail;
 	
-	GetPortBounds( GetWindowPort( window ), &windowPortRect );
+	//GetPortBounds( GetWindowPort( window ), &windowPortRect );
 	gapH = windowPortRect.right - naturalBounds.right;
 	gapV = windowPortRect.bottom - naturalBounds.bottom;
 	
@@ -273,26 +289,32 @@ again:
 	err = GraphicsImportGetBoundsRect( grip, &boundsRect );
 	if( err ) goto bail;
 	InsetRect( &boundsRect, -1, -1 );
-	SetPortWindowPort( window );
+	//SetPortWindowPort( window );
 	FrameRect( &boundsRect );
 	
 	if( scanForAnotherImageMarker( imageData ) ) {
-		// DebugStr("\p again!");
+		 printf("again!");
 		goto again;
 	}
 	
 bail:
 	DisposeHandle( imageData );
-	gDrewJPEG = true;*/
+	//gDrewJPEG = true;
 }
 
 void harvestJPEG(StashedPacket *parent)
 {
+	
+	cout << "harvestJPEG!" << endl;
 	SInt32 totalSize;
 	StashedPacket *p;
 	Handle h;
 	
-	if (parent->SOI == -1) { DebugStr("\pERROR! parent packet has no SOI"); return; }
+	if (parent->SOI == -1) 
+	{
+		cout << "ERROR! parent packet has no SOI" << endl;
+		return; 
+	}
 	
 	totalSize = parent->payloadoffset - parent->SOI;
 	if (parent->EOI != -1 && parent->EOI < parent->SOI) parent->EOI = -1;
@@ -309,7 +331,7 @@ void harvestJPEG(StashedPacket *parent)
 			{
 				if (srch->data->totalLength <= srch->payloadoffset) {
 					// packets like this could cause us to hang, so skip 'em
-					// DebugStr("\pharvestJPEG: skipping empty payload");
+					// printf("\pharvestJPEG: skipping empty payload");
 					continue;
 				}
 				p->following = srch;							// Link it in
@@ -343,8 +365,11 @@ void harvestJPEG(StashedPacket *parent)
 		}
 		
 		DisplayJPEGAndDisposeHandle(h);
+	}else {
+		cout << "out of memory, harvestJPEG" << endl;
 	}
-	//else DebugStr("\p out of memory, harvestJPEG");
+
+	//else printf("\p out of memory, harvestJPEG");
 	
 	TrimPacketChain(parent);
 }
@@ -396,6 +421,17 @@ toss:
 	return( 0 ); // yellow
 }
 
+
+
+
+
+void termPromiscuity(void)
+{
+	if( pcap_session ) {
+		pcap_close( pcap_session );
+		pcap_session = NULL;
+	}
+}
 ofxEtherPEG::ofxEtherPEG()
 {
 	
@@ -403,35 +439,20 @@ ofxEtherPEG::ofxEtherPEG()
 void ofxEtherPEG::setup()
 {
 	int result = createStash();
+	if (result == -1) {
+		cout << "CREATE STASH FAILED" << endl;
+	}
 	char errorBuffer[PCAP_ERRBUF_SIZE];
-	char *device = INTERFACE; // should find all ethernet interfaces and open each
+	const char *device = "en1"; // should find all ethernet interfaces and open each
 tryAgain:
 	pcap_session = pcap_open_live( device, BUFSIZ, 1, 1, errorBuffer );
-	if( NULL == pcap_session ) {
-		AlertStdAlertParamRec alertParams = {
-			true,							// movable, sure
-			false,							// no help button
-			NULL,							// no event filter
-			"\pTry Again",					// OK
-			"\pQuit",						// Cancel
-			NULL,							// no other button
-			kAlertStdAlertOKButton,			// which is OK
-			kAlertStdAlertCancelButton,		// which is Cancel
-			kWindowAlertPositionMainScreen	// where to appear
-		};
-		SInt16 itemHit;
-		fprintf( stderr, "EtherPEG: pcap_open_live failed: %s\n", errorBuffer );
-		StandardAlert( 
-					  kAlertStopAlert,
-					  "\pCould not connect to ethernet device \"" INTERFACE "\".",
-					  "\pUse \"sudo chmod 777 /dev/bpf*\" to enable promiscuous access to ethernet devices.  "
-					  "Use \"ifconfig -a\" to check the device name.  "
-					  "You may need to rebuild EtherPEG with the right device name.  Sucky, eh?",
-					  &alertParams,
-					  &itemHit );
-		if( kAlertStdAlertOKButton == itemHit ) goto tryAgain;
-		ExitToShell();
+	if( pcap_session == NULL ) 
+	{
+		cout << "pcap failed" << endl;
+	}else {
+		cout << "pcap inited" << endl;
 	}
+
 }
 
 void ofxEtherPEG::update()
@@ -464,7 +485,8 @@ void ofxEtherPEG::update()
 		else if ((p->totalLength < 40) && !(p->moreFlagsAndJunk & kFINBit))
 			printf("(p->totalLength < 40) && !(p->moreFlagsAndJunk & kFINBit)\n");
 #endif
-		if ((p->protocol == 6) && ((p->versionAndIHL & 0x0F) == 5)) {
+		if ((p->protocol == 6) && ((p->versionAndIHL & 0x0F) == 5)) 
+		{
 			if ((p->totalLength > 40) || (p->moreFlagsAndJunk & kFINBit)) {
 				createBlob(ConsumePacket( p ));
 			}

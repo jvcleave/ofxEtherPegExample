@@ -26,7 +26,7 @@ typedef struct {
 	// whatever
 } Packet;
 
-OSErr createStash(void);
+int createStash(void);
 void destroyStash(void);
 
 int ConsumePacket( const Packet *packet );

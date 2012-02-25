@@ -3,7 +3,6 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	//createStash();
 	etherPEG.setup();
 }
 

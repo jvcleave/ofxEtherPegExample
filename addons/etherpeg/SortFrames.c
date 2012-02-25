@@ -28,16 +28,22 @@ enum {
 StashedPacket stash[kStashSize];
 UInt32 nextStashEntry = 0;
 
-OSErr createStash(void)
+int createStash(void)
 {
 	int i;
 	for (i = 0; i < kStashSize; i++)
 	{
 		stash[i].state = kFree;
 		stash[i].data = (Packet*)NewPtr(kMaxPacketLength);
-		if (!stash[i].data) { DebugStr("\p out of memory, createStash"); return(memFullErr); }
+		if (!stash[i].data) { 
+			printf(" out of memory, createStash"); 
+			return(0); 
+		}else {
+			printf("stash created");
+		}
+
 	}
-	return noErr;
+	return 1;
 }
 
 void destroyStash(void)
@@ -72,7 +78,7 @@ static void TrimPacketChain(StashedPacket *p)
 	}
 }
 
-static void harvestJPEG(StashedPacket *parent)
+void harvestJPEG(StashedPacket *parent)
 {
 	SInt32 totalSize;
 	StashedPacket *p;
@@ -142,7 +148,7 @@ static SInt32 getOffsetToPayload( const Packet *packet )
 	return kIPHeaderLength + tcpHeaderLength;
 }
 
-static void ensureFreeSlotInStash()
+void ensureFreeSlotInStash()
 {
 	StashedPacket *p = &stash[nextStashEntry];
 	

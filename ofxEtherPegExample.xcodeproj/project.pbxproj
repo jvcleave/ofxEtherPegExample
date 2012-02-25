@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0367CEA114F7547B004A07D7 /* EtherPEG.c in Sources */ = {isa = PBXBuildFile; fileRef = 0367CE9C14F7547B004A07D7 /* EtherPEG.c */; };
 		0367CEA214F7547B004A07D7 /* PromiscuityX.c in Sources */ = {isa = PBXBuildFile; fileRef = 0367CE9E14F7547B004A07D7 /* PromiscuityX.c */; };
-		0367CEA314F7547B004A07D7 /* SortFrames.c in Sources */ = {isa = PBXBuildFile; fileRef = 0367CE9F14F7547B004A07D7 /* SortFrames.c */; };
 		0367CEED14F7F7ED004A07D7 /* libpcap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0367CEEC14F7F7ED004A07D7 /* libpcap.a */; };
 		0367CF2A14F7FB54004A07D7 /* ofxEtherPEG.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0367CF2914F7FB54004A07D7 /* ofxEtherPEG.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
@@ -296,9 +294,7 @@
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
-				0367CEA114F7547B004A07D7 /* EtherPEG.c in Sources */,
 				0367CEA214F7547B004A07D7 /* PromiscuityX.c in Sources */,
-				0367CEA314F7547B004A07D7 /* SortFrames.c in Sources */,
 				0367CF2A14F7FB54004A07D7 /* ofxEtherPEG.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

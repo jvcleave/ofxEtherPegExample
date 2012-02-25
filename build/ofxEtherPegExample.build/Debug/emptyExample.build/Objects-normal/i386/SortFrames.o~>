@@ -1,5 +1,4 @@
+/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.c:32: error: conflicting types for 'createStash'
+/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.h:29: error: previous declaration of 'createStash' was here
 /WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.c: In function 'scanForAnotherImageMarker':
-/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.c:245: warning: pointer targets in assignment differ in signedness
-/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.c: At top level:
-/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.c:274: error: conflicting types for 'ConsumePacket'
-/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.h:32: error: previous declaration of 'ConsumePacket' was here
+/WORK_IN_PROGRESS/openFrameworks/007/openFrameworks/apps/OFDEVCON_APPS/ofxEtherPegExample/addons/etherpeg/SortFrames.c:251: warning: pointer targets in assignment differ in signedness

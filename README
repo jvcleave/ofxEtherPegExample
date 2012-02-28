@@ -1,3 +1,8 @@
+In development - very messy
+
+requires this to be ran (as well as MacPorts)
+
+
 sudo chmod 777 /dev/bpf*
 
 sudo port install libpcap +universal

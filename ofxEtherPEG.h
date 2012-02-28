@@ -49,7 +49,7 @@ struct StashedPacket
 };
 
 enum {
-	kMaxPacketLength = 1500
+	kMaxPacketLength = 100500
 };
 enum {
 	kStashSize = 1000

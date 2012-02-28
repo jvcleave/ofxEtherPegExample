@@ -11,7 +11,7 @@
 
 static pcap_t *pcap_session = NULL;
 
-#define INTERFACE	"en1"
+#define INTERFACE	"en0"
 int xCounter = 0;
 int rowCounter = 1;
 
@@ -31,14 +31,22 @@ SInt32 getOffsetToPayload( const Packet *packet )
 
 StashedPacket *addPacketToStash(const Packet *packetdata, SInt32 SOI, SInt32 EOI, StashedPacket *parent)
 {
+	
+	cout << "addPacketToStash: " << endl;
 	StashedPacket *p;
 	
 	if (!parent && SOI == -1)
 	{ 
 		cout << "addPacketToStash invalid packet" << endl;
-		return(NULL); 
+		return NULL; 
 	}
-	if (packetdata->totalLength > kMaxPacketLength) return(NULL);
+	if (packetdata->totalLength > kMaxPacketLength)
+	{
+		
+		cout << "packetdata->totalLength: " << packetdata->totalLength << " kMaxPacketLength: " << kMaxPacketLength <<  endl;
+		return NULL;
+		
+	}
 	
 	p = &stash[nextStashEntry];
 	if (p->state != kFree) 
@@ -208,7 +216,12 @@ void DisplayJPEGAndDisposeHandle( Handle imageData )
 	{
 		cout << "NO IMAGE DATA" << endl;
 	}	else {
-		cout << "WE HAVE DATA!" << endl;
+		cout << "WE HAVE DATA! WE HAVE DATA! WE HAVE DATA! WE HAVE DATA!" << endl;
+		ofImage image;
+		//ofPixels pixels();
+		//pixels = imageData;
+		image.setFromPixels((const unsigned char *)imageData, 100, 100, OF_IMAGE_COLOR);
+		image.saveImage(ofToDataPath(ofGetTimestampString()+".jpg", OF_IMAGE_QUALITY_BEST));
 	}
 
 	return;
@@ -239,9 +252,19 @@ again:
 	err = PtrAndHand( sentinel, imageData, sentinelSize );
 	
 	err = GraphicsImportSetDataHandle( grip, imageData );
-	if( err ) goto bail;
+	if( err )
+	{
+		
+		cout << "GraphicsImportSetDataHandle Error" << endl;
+		goto bail;
+	}
 	err = GraphicsImportGetNaturalBounds( grip, &naturalBounds );
-	if( err ) goto bail;
+	if( err )
+	{
+		
+		cout << "GraphicsImportGetNaturalBounds Error" << endl;
+		goto bail;
+	}
 	
 	//GetPortBounds( GetWindowPort( window ), &windowPortRect );
 	gapH = windowPortRect.right - naturalBounds.right;
@@ -299,6 +322,7 @@ again:
 	
 bail:
 	DisposeHandle( imageData );
+
 	//gDrewJPEG = true;
 }
 
@@ -394,7 +418,8 @@ int ConsumePacket( const Packet *packet )
 	SInt32 SOI, EOI;
 	StashedPacket *p;
 	StashedPacket *parent;
-	Boolean addMe = false, harvestMe = false;
+	bool addMe = false;
+	bool harvestMe = false;
 	
 	if( packet->protocol != 6 ) goto toss; // only TCP packets please
 	if( ( packet->versionAndIHL & 0x0f ) != 5 ) goto toss; // minimal IP headers only (lame?)
@@ -405,10 +430,28 @@ int ConsumePacket( const Packet *packet )
 	parent = findParentPacket(packet);
 	searchForImageMarkers(packet, &SOI, &EOI);
 	
-	// If this packet contains an image start marker, or continues an existing sequence, then stash it
-	if (parent || SOI != -1) addMe = true;
-	if (addMe) p = addPacketToStash(packet, SOI, EOI, parent);
+	if (parent) {
+		cout << "WE HAVE PARENT" << endl;
+	}
+	if (SOI != -1) {
+		cout << "WE HAVE SOI" << endl;
+	}
 	
+	
+	// If this packet contains an image start marker, or continues an existing sequence, then stash it
+	
+	
+	if (parent || SOI != -1)
+	{
+		 addMe = true;
+	}
+	if (addMe)
+	{
+		 p = addPacketToStash(packet, SOI, EOI, parent);
+	}
+	if (EOI != -1) {
+		cout << "WE HAVE EOI"  << endl;
+	}
 	// If this packet contains an image end marker, and we successfully stashed it, then harvest the packet
 	if (p && EOI != -1) harvestMe = true;
 	if (harvestMe) harvestJPEG(parent ? parent : p);
@@ -443,7 +486,7 @@ void ofxEtherPEG::setup()
 		cout << "CREATE STASH FAILED" << endl;
 	}
 	char errorBuffer[PCAP_ERRBUF_SIZE];
-	const char *device = "en1"; // should find all ethernet interfaces and open each
+	const char *device = INTERFACE; // should find all ethernet interfaces and open each
 tryAgain:
 	pcap_session = pcap_open_live( device, BUFSIZ, 1, 1, errorBuffer );
 	if( pcap_session == NULL ) 
@@ -535,7 +578,11 @@ void ofxEtherPEG::createBlob(int aNumber)
 	blob.color = color;
 	
 	blobs.push_back(blob);
-	
+	if (rowCounter*BLOB_SIZE > ofGetHeight()) {
+		blobs.clear();
+		rowCounter = 0;
+		xCounter = 0;
+	}
 	
 }
 void ofxEtherPEG::draw()

@@ -48,9 +48,7 @@ struct StashedPacket
 	StashedPacket *following;
 };
 
-enum {
-	kMaxPacketLength = 100500
-};
+
 enum {
 	kStashSize = 1000
 };
@@ -75,5 +73,7 @@ public:
 	void createBlob(int aNumber);
 	void termPromiscuity(void);
 	vector<Blob>blobs;
+	
+	
 };
 

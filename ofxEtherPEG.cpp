@@ -8,7 +8,7 @@
  */
 
 #include "ofxEtherPEG.h"
-
+int kMaxPacketLength = 100500;
 static pcap_t *pcap_session = NULL;
 
 #define INTERFACE	"en0"
@@ -32,18 +32,18 @@ SInt32 getOffsetToPayload( const Packet *packet )
 StashedPacket *addPacketToStash(const Packet *packetdata, SInt32 SOI, SInt32 EOI, StashedPacket *parent)
 {
 	
-	cout << "addPacketToStash: " << endl;
+	ofLogNotice() << "addPacketToStash: " << endl;
 	StashedPacket *p;
 	
 	if (!parent && SOI == -1)
 	{ 
-		cout << "addPacketToStash invalid packet" << endl;
+		ofLogNotice() << "addPacketToStash invalid packet" << endl;
 		return NULL; 
 	}
 	if (packetdata->totalLength > kMaxPacketLength)
 	{
 		
-		cout << "packetdata->totalLength: " << packetdata->totalLength << " kMaxPacketLength: " << kMaxPacketLength <<  endl;
+		cout << "packetdata->totalLength: " << (int)packetdata->totalLength << " kMaxPacketLength: " << kMaxPacketLength <<  endl;
 		return NULL;
 		
 	}
@@ -51,7 +51,7 @@ StashedPacket *addPacketToStash(const Packet *packetdata, SInt32 SOI, SInt32 EOI
 	p = &stash[nextStashEntry];
 	if (p->state != kFree) 
 	{ 
-		cout << "addPacketToStash no free space" << endl;
+		ofLogNotice() << "addPacketToStash no free space" << endl;
 		return(NULL); 
 	}
 	if (++nextStashEntry >= kStashSize) nextStashEntry = 0;
@@ -148,12 +148,12 @@ int createStash()
 		stash[i].data = (Packet*)NewPtr(kMaxPacketLength);
 		if (!stash[i].data) 
 		{ 
-			cout << "out of memory" << endl; 
+			ofLogNotice() << "out of memory" << endl; 
 			returnValue =  -1; 
 		}else 
 		{
 			counter++;
-			//cout << "STASH CREATED: " << counter << endl; 
+			//ofLogNotice() << "STASH CREATED: " << counter << endl; 
 			returnValue = 1;
 		}
 		
@@ -214,19 +214,24 @@ void DisplayJPEGAndDisposeHandle( Handle imageData )
 	
 	if( !imageData )
 	{
-		cout << "NO IMAGE DATA" << endl;
+		ofLogNotice() << "NO IMAGE DATA" << endl;
 	}	else {
-		cout << "WE HAVE DATA! WE HAVE DATA! WE HAVE DATA! WE HAVE DATA!" << endl;
+		
 		ofImage image;
 		//ofPixels pixels();
 		//pixels = imageData;
-		image.setFromPixels((const unsigned char *)imageData, 100, 100, OF_IMAGE_COLOR);
-		image.saveImage(ofToDataPath(ofGetTimestampString()+".jpg", OF_IMAGE_QUALITY_BEST));
+		//image.setFromPixels((const unsigned char *)imageData);
+		//string image
+		//image.saveImage(ofToDataPath(ofGetTimestampString()+".jpg", OF_IMAGE_QUALITY_BEST));
+		
+		ofLogError() << "WE HAVE DATA!" << endl;
 	}
 
 	return;
 	
 again:
+	
+	ofLogError() << "Again called";
 	if( 'G' == **imageData ) {
 		grip = gripG;
 		// for GIF:
@@ -255,14 +260,14 @@ again:
 	if( err )
 	{
 		
-		cout << "GraphicsImportSetDataHandle Error" << endl;
+		ofLogNotice() << "GraphicsImportSetDataHandle Error" << endl;
 		goto bail;
 	}
 	err = GraphicsImportGetNaturalBounds( grip, &naturalBounds );
 	if( err )
 	{
 		
-		cout << "GraphicsImportGetNaturalBounds Error" << endl;
+		ofLogNotice() << "GraphicsImportGetNaturalBounds Error" << endl;
 		goto bail;
 	}
 	
@@ -315,8 +320,9 @@ again:
 	//SetPortWindowPort( window );
 	FrameRect( &boundsRect );
 	
-	if( scanForAnotherImageMarker( imageData ) ) {
-		 printf("again!");
+	if( scanForAnotherImageMarker(imageData))
+	{
+		 ofLogError() << "again: scanForAnotherImageMarker" << endl;
 		goto again;
 	}
 	
@@ -329,14 +335,14 @@ bail:
 void harvestJPEG(StashedPacket *parent)
 {
 	
-	cout << "harvestJPEG!" << endl;
+	ofLogNotice() << "harvestJPEG!" << endl;
 	SInt32 totalSize;
 	StashedPacket *p;
 	Handle h;
 	
 	if (parent->SOI == -1) 
 	{
-		cout << "ERROR! parent packet has no SOI" << endl;
+		ofLogNotice() << "ERROR! parent packet has no SOI" << endl;
 		return; 
 	}
 	
@@ -390,7 +396,7 @@ void harvestJPEG(StashedPacket *parent)
 		
 		DisplayJPEGAndDisposeHandle(h);
 	}else {
-		cout << "out of memory, harvestJPEG" << endl;
+		ofLogNotice() << "out of memory, harvestJPEG" << endl;
 	}
 
 	//else printf("\p out of memory, harvestJPEG");
@@ -431,10 +437,10 @@ int ConsumePacket( const Packet *packet )
 	searchForImageMarkers(packet, &SOI, &EOI);
 	
 	if (parent) {
-		cout << "WE HAVE PARENT" << endl;
+		ofLogNotice() << "WE HAVE PARENT" << endl;
 	}
 	if (SOI != -1) {
-		cout << "WE HAVE SOI" << endl;
+		ofLogNotice() << "WE HAVE SOI" << endl;
 	}
 	
 	
@@ -450,7 +456,7 @@ int ConsumePacket( const Packet *packet )
 		 p = addPacketToStash(packet, SOI, EOI, parent);
 	}
 	if (EOI != -1) {
-		cout << "WE HAVE EOI"  << endl;
+		ofLogNotice() << "WE HAVE EOI"  << endl;
 	}
 	// If this packet contains an image end marker, and we successfully stashed it, then harvest the packet
 	if (p && EOI != -1) harvestMe = true;
@@ -481,9 +487,11 @@ ofxEtherPEG::ofxEtherPEG()
 }
 void ofxEtherPEG::setup()
 {
+	
+	
 	int result = createStash();
 	if (result == -1) {
-		cout << "CREATE STASH FAILED" << endl;
+		ofLogNotice() << "CREATE STASH FAILED" << endl;
 	}
 	char errorBuffer[PCAP_ERRBUF_SIZE];
 	const char *device = INTERFACE; // should find all ethernet interfaces and open each
@@ -491,9 +499,9 @@ tryAgain:
 	pcap_session = pcap_open_live( device, BUFSIZ, 1, 1, errorBuffer );
 	if( pcap_session == NULL ) 
 	{
-		cout << "pcap failed" << endl;
+		ofLogNotice() << "pcap failed" << endl;
 	}else {
-		cout << "pcap inited" << endl;
+		ofLogNotice() << "pcap inited" << endl;
 	}
 
 }
@@ -596,8 +604,8 @@ void ofxEtherPEG::draw()
 		//int contentWidth = ( (4*blobs.size()) + (blobs.size()*2) );
 		//int numRows = contentWidth/ofGetWidth();
 		
-		//cout << "numRows: " << numRows << endl;
-		//cout << "contentWidth: " << contentWidth << endl;
+		//ofLogNotice() << "numRows: " << numRows << endl;
+		//ofLogNotice() << "contentWidth: " << contentWidth << endl;
 		
 		for (int i=0; i<blobs.size(); i++) 
 		{
@@ -618,14 +626,14 @@ void ofxEtherPEG::draw()
 
 		if (xCounter>ofGetWidth()) 
 		{
-			//cout << i << ": xCounter : " << xCounter << endl;
+			//ofLogNotice() << i << ": xCounter : " << xCounter << endl;
 			xCounter = 0;
 			rowCounter++;
 			ofRect(xCounter, blobs[i].size*rowCounter, blobs[i].size, blobs[i].size);
 		}else {
 			xCounter+=(blobs[i].size*i) + (i*2);
 		}
-		cout << i << ": xCounter : " << xCounter << endl;
+		ofLogNotice() << i << ": xCounter : " << xCounter << endl;
 
 	}*/
 	

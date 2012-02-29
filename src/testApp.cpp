@@ -3,6 +3,7 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+	ofSetLogLevel(OF_LOG_ERROR);
 	etherPEG.setup();
 }
 
